@@ -12,7 +12,8 @@ class App extends Component {
       author: AUTHORS[Math.floor(Math.random() * AUTHORS.length)],
       message: '',
       currentMessage: null,
-      allMessages: null
+      allMessages: null,
+      error: null
     }
     this.messageWrapperRef = createRef();
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,20 +27,24 @@ class App extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { author, message } = this.state;
-    const request = await fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=${REACT_APP_UNIQUE_TOKEN}`, {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        author,
-        message
-      })
-    });
-    const currentMessage = await request.json();
-    this.setState({ currentMessage })
+    try {
+      const request = await fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=${REACT_APP_UNIQUE_TOKEN}`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          author,
+          message
+        })
+      });
+      const currentMessage = await request.json();
+      this.setState({ currentMessage })
+    } catch (error) {
+      this.setState({ error })
+    }
   }
 
   async fetchAllMessages() {
@@ -60,7 +65,7 @@ class App extends Component {
   }
 
   render() {
-    const { author: currentAuthor, message, allMessages } = this.state;
+    const { author: currentAuthor, message, allMessages, error } = this.state;
     return (
       <div className="App">
         <h1 className="app-current-author">You are logging in as <span>{currentAuthor}</span></h1>
@@ -75,6 +80,7 @@ class App extends Component {
           <input onChange={this.handleChange} value={message} />
           <button type="submit">Submit</button>
         </form>
+        <p>{error && error.message}</p>
       </div>
     );
   }
