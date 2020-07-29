@@ -1,1 +1,1 @@
-export const AUTHORS = ['Zak', 'Tom', 'Mark', 'Sara', 'Dan']; 
+export const AUTHORS = ['Zak', 'Tom', 'Mark', 'Sara', 'Dan', 'Martin57', 'Ninja', 'Patrick', 'Patricia', 'Nat', 'Gordon']; 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Message from './components/Message';
 
 import { AUTHORS } from './utils/constants'
@@ -14,6 +14,7 @@ class App extends Component {
       currentMessage: null,
       allMessages: null
     }
+    this.messageWrapperRef = createRef();
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
@@ -42,31 +43,41 @@ class App extends Component {
   }
 
   async fetchAllMessages() {
+    const { allMessages: allMessagesStates } = this.state;
     const request = await fetch('https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=tPgPUVxilfuY');
     const allMessages = await request.json();
-    this.setState({ allMessages })
+    if (allMessagesStates && allMessagesStates.length === allMessages.length) {
+      return;
+    }
+    this.setState({ allMessages });
+
   }
 
   componentDidMount() {
-    this.fetchAllMessages()
+    this.fetchAllMessages();
   }
 
   componentDidUpdate() {
-    this.fetchAllMessages()
+    this.fetchAllMessages();
+    this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
   }
 
   render() {
     const { author: currentAuthor, message, allMessages } = this.state;
     return (
       <div className="App">
-        <h1>You are logging in as {currentAuthor}</h1>
+        <h1 className="app-current-author">You are logging in as <span>{currentAuthor}</span></h1>
+        <div ref={this.messageWrapperRef} className="message-wrapper">
+          <div className="message-wrapper-inner">
+            {allMessages && allMessages.map((item) => (
+              <Message key={item._id} messageItem={item} currentAuthor={currentAuthor} />
+            ))}
+          </div>
+        </div>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={message} />
           <button type="submit">Submit</button>
         </form>
-        {allMessages && allMessages.map((item) => (
-          <Message messageItem={item} currentAuthor={currentAuthor} />
-        ))}
       </div>
     );
   }

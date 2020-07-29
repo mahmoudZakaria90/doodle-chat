@@ -3,3 +3,19 @@
     margin: auto;
     padding: 0 15px
 }
+
+.app-current-author span {
+    color: lightcoral
+}
+
+.message-wrapper {
+    padding: 16px;
+    max-height: 670px;
+    overflow: auto;
+    background: url('./assets/images/Body_BG.png') no-repeat center center / cover;
+}
+
+.message-wrapper-inner {
+    width: 70%;
+    margin: auto
+}

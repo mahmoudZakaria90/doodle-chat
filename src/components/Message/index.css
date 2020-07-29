@@ -1,11 +1,30 @@
 .message {
-    text-align: left;
-    padding: 25px;
-    background-color: #ddd;
+    display: inline-block;
+    max-width: 420px;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #d9dee2;
+    background-color: white;
     margin-bottom: 30px;
+    text-align: left;
+}
+
+.message-body {
+    margin: 5px 0 10px;
 }
 
 .message-current-author {
+    margin-left: auto;
+    background-color: #fcf7c6;
+}
+
+.message-meta {
+    color: #b8bfc6;
+    margin: 0;
+    font-size: smaller
+}
+
+.message-current-author .message-meta {
     text-align: right;
-    background-color: lightcoral;
+    color: #bdc3c3
 }
