@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import Message from './components/Message';
 
-import { AUTHORS } from './utils/constants'
+import { AUTHORS, REACT_APP_UNIQUE_TOKEN } from './utils/constants'
 
 import './App.css';
 
@@ -26,7 +26,7 @@ class App extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { author, message } = this.state;
-    const request = await fetch('https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=tPgPUVxilfuY', {
+    const request = await fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=${REACT_APP_UNIQUE_TOKEN}`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'same-origin',
@@ -46,11 +46,8 @@ class App extends Component {
     const { allMessages: allMessagesStates } = this.state;
     const request = await fetch('https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=tPgPUVxilfuY');
     const allMessages = await request.json();
-    if (allMessagesStates && allMessagesStates.length === allMessages.length) {
-      return;
-    }
+    if (allMessagesStates && allMessagesStates.length === allMessages.length) return;
     this.setState({ allMessages });
-
   }
 
   componentDidMount() {
