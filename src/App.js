@@ -41,7 +41,7 @@ class App extends Component {
         })
       });
       const currentMessage = await request.json();
-      this.setState({ currentMessage })
+      this.setState({ currentMessage, message: '' })
     } catch (error) {
       this.setState({ error })
     }
@@ -76,11 +76,11 @@ class App extends Component {
             ))}
           </div>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={message} />
-          <button type="submit">Submit</button>
+        <form className="message-form" onSubmit={this.handleSubmit}>
+          <input placeholder="Message" className="message-form-control" onChange={this.handleChange} value={message} />
+          <button className="message-form-btn" type="submit">Submit</button>
         </form>
-        <p>{error && error.message}</p>
+        <p style={{ color: 'red' }}>{error && error.message}</p>
       </div>
     );
   }
