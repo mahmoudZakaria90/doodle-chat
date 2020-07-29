@@ -53,6 +53,7 @@ class App extends Component {
     const allMessages = await request.json();
     if (allMessagesStates && allMessagesStates.length === allMessages.length) return;
     this.setState({ allMessages });
+    this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
   }
 
   componentDidMount() {
@@ -61,7 +62,6 @@ class App extends Component {
 
   componentDidUpdate() {
     this.fetchAllMessages();
-    this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
   }
 
   render() {
@@ -79,7 +79,7 @@ class App extends Component {
         <form className="app-form" onSubmit={this.handleSubmit}>
           <div className="container-inner">
             <input placeholder="Message" className="app-form-control" onChange={this.handleChange} value={message} />
-            <button className="app-form-btn" type="submit">Send</button>
+            <button className="app-form-btn" type="submit" disabled={!message}>Send</button>
           </div>
         </form>
         <p style={{ color: 'red' }}>{error && error.message}</p>

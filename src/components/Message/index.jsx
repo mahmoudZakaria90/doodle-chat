@@ -14,7 +14,7 @@ export default ({
             <div className={`message ${isCurrentAuthor ? 'message-current-author' : ''}`}>
                 <p className="message-meta">{!isCurrentAuthor ? author : ''}</p>
                 <p className="message-body">{message}</p>
-                <p className="message-meta">{dateString} / {timeString}</p>
+                <p className="message-meta">{dateString} {timeString}</p>
             </div>
         </div>
     )
