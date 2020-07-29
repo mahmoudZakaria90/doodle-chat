@@ -1,0 +1,11 @@
+.message {
+    text-align: left;
+    padding: 25px;
+    background-color: #ddd;
+    margin-bottom: 30px;
+}
+
+.message-current-author {
+    text-align: right;
+    background-color: lightcoral;
+}
