@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import Message from './components/Message';
 
-import { AUTHORS, REACT_APP_UNIQUE_TOKEN } from './utils/constants'
+import { AUTHORS, REQUEST_URL } from './utils/constants'
 
 import './App.css';
 
@@ -28,7 +28,7 @@ class App extends Component {
     e.preventDefault();
     const { author, message } = this.state;
     try {
-      const request = await fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=${REACT_APP_UNIQUE_TOKEN}`, {
+      const request = await fetch(REQUEST_URL, {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',
@@ -49,11 +49,15 @@ class App extends Component {
 
   async fetchAllMessages() {
     const { allMessages: allMessagesStates } = this.state;
-    const request = await fetch('https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0/?token=tPgPUVxilfuY');
-    const allMessages = await request.json();
-    if (allMessagesStates && allMessagesStates.length === allMessages.length) return;
-    this.setState({ allMessages });
-    this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
+    try {
+      const request = await fetch(REQUEST_URL);
+      const allMessages = await request.json();
+      if (allMessagesStates && allMessagesStates.length === allMessages.length) return;
+      this.setState({ allMessages });
+      this.messageWrapperRef.current.scrollTop = this.messageWrapperRef.current.scrollHeight;
+    } catch (error) {
+      this.setState({ error })
+    }
   }
 
   componentDidMount() {
