@@ -1,7 +1,12 @@
-.App {
+.container {
     max-width: 960px;
     margin: auto;
     padding: 0 15px
+}
+
+.container-inner {
+    width: 70%;
+    margin: auto
 }
 
 .app-current-author span {
@@ -15,37 +20,44 @@
     background: url('./assets/images/Body_BG.png') no-repeat center center / cover;
 }
 
-.message-wrapper-inner {
-    width: 70%;
-    margin: auto
-}
-
-.message-form {
-    text-align: center;
-    padding: 16px 25px;
+.app-form {
+    padding: 16px;
     background-color: #3898d3;
 }
 
-.message-form-control,
-.message-form-btn {
+.app-form .container-inner {
+    display: flex;
+}
+
+.app-form-control,
+.app-form-btn {
     border: none;
     border-radius: 4px;
     padding-top: 15px;
     padding-bottom: 15px;
 }
-.message-form-control {
-    width: 50%;
+.app-form-control {
     text-align: left;
     margin-right: 15px;
     padding-right: 15px;
     padding-left: 15px;
     outline: 0;
+    flex-grow: 1
 }
 
-.message-form-btn {
+.app-form-btn {
     background-color: lightcoral;
     color: white;
     padding-right: 25px;
     padding-left: 25px;
     cursor: pointer;
+}
+
+@media(max-width: 767px){
+    .app-current-author{
+        font-size: 20px
+    }
+    .container-inner {
+        width: auto;
+    }
 }

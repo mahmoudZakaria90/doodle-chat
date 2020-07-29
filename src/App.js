@@ -67,18 +67,20 @@ class App extends Component {
   render() {
     const { author: currentAuthor, message, allMessages, error } = this.state;
     return (
-      <div className="App">
+      <div className="container">
         <h1 className="app-current-author">You are logging in as <span>{currentAuthor}</span></h1>
         <div ref={this.messageWrapperRef} className="message-wrapper">
-          <div className="message-wrapper-inner">
+          <div className="container-inner">
             {allMessages && allMessages.map((item) => (
               <Message key={item._id} messageItem={item} currentAuthor={currentAuthor} />
             ))}
           </div>
         </div>
-        <form className="message-form" onSubmit={this.handleSubmit}>
-          <input placeholder="Message" className="message-form-control" onChange={this.handleChange} value={message} />
-          <button className="message-form-btn" type="submit">Submit</button>
+        <form className="app-form" onSubmit={this.handleSubmit}>
+          <div className="container-inner">
+            <input placeholder="Message" className="app-form-control" onChange={this.handleChange} value={message} />
+            <button className="app-form-btn" type="submit">Send</button>
+          </div>
         </form>
         <p style={{ color: 'red' }}>{error && error.message}</p>
       </div>
